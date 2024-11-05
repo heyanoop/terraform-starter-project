@@ -54,6 +54,14 @@ module "instance" {
   public_subnet_id = module.subnet.public_subnet_id
   private_subnet_id = module.subnet.private_subnet_id
   pem_key_name = "anoop-linux"
-  bastion_security_group_ids = module.security_group.private_instance_sg_id
-  private_security_group_ids = module.security_group.private_instance_sg_id
+  bastion_security_group_ids = [module.security_group.private_instance_sg_id]
+  private_security_group_ids = [module.security_group.private_instance_sg_id]
+}
+
+terraform {
+  backend "s3" {
+    bucket = "anoop-tf-test-bucket-2024"
+    key    = "refined-terraform/terraform.tfstate"
+    region = "ap-south-1"
+  }
 }
